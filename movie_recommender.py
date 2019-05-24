@@ -4,16 +4,19 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-# helper function
+################################## helper functions
 def get_title_from_index(index):
 	return df[df.index == index]["title"].values[0]
 
 def get_index_from_title(title):
-	return df[df.title == title]["index"].values[0]
+    try:
+	    return df[df.title == title]["index"].values[0]
+    except:
+        return -1
 ##################################################
 
 # Read CSV File
-df = pd.read_csv("movie_dataset.csv")
+df = pd.read_csv("iMDB.csv")
 
 # Selecting Features
 features = ['keywords','cast','genres','director']
@@ -34,21 +37,24 @@ count_matrix = cv.fit_transform(df["combined_features"])
 
 # Compute the Cosine Similarity based on the count_matrix
 cosine_sim = cosine_similarity(count_matrix) 
-# CHANGE TO INPUT
-movie_user_likes = "Avatar"
 
-## Step 6: Get index of this movie from its title
-movie_index = get_index_from_title(movie_user_likes)
+# movie in search
+movie_index = -1
+while movie_index == -1:
+    movie_user_likes = str(input("What movie do you like? "))
+    movie_user_likes = movie_user_likes.strip()
+    movie_index = get_index_from_title(movie_user_likes)
+    if movie_index == -1:
+        print("Oops! Movie does not exist.")
 
+# Get a list of similar movies in descending order of similarity score
 similar_movies =  list(enumerate(cosine_sim[movie_index]))
-
-## Step 7: Get a list of similar movies in descending order of similarity score
 sorted_similar_movies = sorted(similar_movies,key=lambda x:x[1],reverse=True)
 
-## Step 8: Print titles of first 50 movies
-i=0
+# Print first 50 similar movies
+i = 0
 for element in sorted_similar_movies:
-		print get_title_from_index(element[0])
-		i=i+1
-		if i>50:
+		print(get_title_from_index(element[0]))
+		i += 1
+		if i > 50:
 			break

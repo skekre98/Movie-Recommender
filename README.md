@@ -1,5 +1,5 @@
 # Movie-Recommender
-Content-based recommendation system for finding similar movies
+Content-based recommendation engine for finding similar movies
 
 
 ![alt text](https://m.media-amazon.com/images/G/01/imdbpro/help/recommend._CB1529980962_.png)

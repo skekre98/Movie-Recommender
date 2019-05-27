@@ -12,7 +12,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Dependencies
 
-Runs on Python 3.6+
+Runs on Python 3.5+
 * [NumPy](https://www.numpy.org) - package for scientific computing with Python
 * [Pandas](https://pandas.pydata.org) - Python Data Analysis Library
 * [scikit-learn](https://scikit-learn.org/stable/) - machine learning library for the Python 

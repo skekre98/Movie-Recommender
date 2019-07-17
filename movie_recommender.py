@@ -5,12 +5,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 ################################## helper functions
-def get_title_from_index(index):
-	return df[df.index == index]["title"].values[0]
+def gtfi(index):
+	title = df[df.index == index]["title"].values[0]
+	return title
 
-def get_index_from_title(title):
+def gift(title):
     try:
-	    return df[df.title == title]["index"].values[0]
+	index = df[df.title == title]["index"].values[0]
+	return index
     except:
         return -1
 ##################################################
@@ -43,7 +45,7 @@ movie_index = -1
 while movie_index == -1:
     movie_user_likes = str(input("What movie do you like? "))
     movie_user_likes = movie_user_likes.strip()
-    movie_index = get_index_from_title(movie_user_likes)
+    movie_index = gift(movie_user_likes)
     if movie_index == -1:
         print("Oops! Movie does not exist.")
 
@@ -54,7 +56,7 @@ sorted_similar_movies = sorted(similar_movies,key=lambda x:x[1],reverse=True)
 # Print first 50 similar movies
 i = 0
 for element in sorted_similar_movies:
-		print(get_title_from_index(element[0]))
+		print(gtfi(element[0]))
 		i += 1
 		if i > 50:
 			break
